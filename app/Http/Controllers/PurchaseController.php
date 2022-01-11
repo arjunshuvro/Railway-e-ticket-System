@@ -75,6 +75,7 @@ class PurchaseController extends Controller
                     $purchase->ticket_id = $request->input('ticket_id');
                     $purchase->purchased_id = Auth::id();
                     $purchase->save();
+                    Mail::to(Auth::user()->email)->send(new PurchaseTicket($purchase));
                     return redirect()->route('purchase.index');
                 }
                 else{
